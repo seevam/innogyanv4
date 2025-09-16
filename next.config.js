@@ -1,4 +1,3 @@
-@@ -0,0 +1,11 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   experimental: {
