@@ -14,7 +14,6 @@ export default function ParticleSystem() {
       particle.style.pointerEvents = 'none'
       particle.style.zIndex = '1'
       
-      // Random colors from the playbox theme
       const colors = ['#00ffff', '#ff00ff', '#00ff88', '#ffff00', '#ff6b35']
       const color = colors[Math.floor(Math.random() * colors.length)]
       
@@ -25,7 +24,6 @@ export default function ParticleSystem() {
       
       document.body.appendChild(particle)
 
-      // Animation
       const fallDuration = Math.random() * 3000 + 2000
       const fallAnimation = particle.animate([
         { 
@@ -45,10 +43,8 @@ export default function ParticleSystem() {
       fallAnimation.onfinish = () => particle.remove()
     }
 
-    // Create particles periodically
     const interval = setInterval(createParticle, 400)
     
-    // Create initial burst
     for (let i = 0; i < 5; i++) {
       setTimeout(createParticle, i * 200)
     }
