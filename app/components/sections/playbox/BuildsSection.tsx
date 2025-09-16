@@ -27,28 +27,6 @@ const buildCategories = [
   }
 ]
 
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.15
-    }
-  }
-}
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 30 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.5,
-      ease: "easeOut"
-    }
-  }
-}
-
 const BuildsSection = () => {
   return (
     <section className="py-20 bg-gradient-to-br from-[#1a1a2e] to-[#16213e] relative">
@@ -63,24 +41,21 @@ const BuildsSection = () => {
           Tinker Today. Think Like A <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-500">Creator Tomorrow.</span>
         </motion.h2>
 
-        <motion.div 
-          className="grid md:grid-cols-2 xl:grid-cols-4 gap-6"
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-        >
+        <div className="grid md:grid-cols-2 xl:grid-cols-4 gap-6">
           {buildCategories.map((category, index) => (
             <motion.div
               key={index}
               className="bg-black/70 border border-purple-500/30 rounded-2xl p-6 text-center transition-all duration-300 hover:transform hover:-translate-y-1 hover:border-purple-500/60 hover:shadow-lg hover:shadow-purple-500/20 group"
-              variants={itemVariants}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: index * 0.15 }}
             >
               <div className="text-4xl mb-4 group-hover:scale-110 transition-transform duration-300">
                 {category.icon}
               </div>
 
-              <h3 className="text-purple-400 text-lg font-semibold mb-3 text-shadow-purple">
+              <h3 className="text-purple-400 text-lg font-semibold mb-3">
                 {category.title}
               </h3>
 
@@ -89,7 +64,7 @@ const BuildsSection = () => {
               </p>
             </motion.div>
           ))}
-        </motion.div>
+        </div>
       </div>
     </section>
   )
