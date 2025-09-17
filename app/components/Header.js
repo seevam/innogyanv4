@@ -1,8 +1,8 @@
-
 'use client';
 
 import { useState } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 
 export default function Header({ openModal }) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -24,9 +24,9 @@ export default function Header({ openModal }) {
       {/* Pre-header */}
       <div className="pre-header">
         <div className="container">
-          <a href="/index.html">Home</a>
-          <a href="/innogyanschool.html">For Schools</a>
-          <a href="/innogyancollege.html">For Colleges</a>
+          <Link href="/">Home</Link>
+          <Link href="/innogyanschool">For Schools</Link>
+          <Link href="/innogyancollege">For Colleges</Link>
         </div>
       </div>
 
@@ -34,15 +34,16 @@ export default function Header({ openModal }) {
       <nav className="main-nav">
         <div className="nav-container">
           <div className="logo">
-            <a href="/" className="logo-link">
+            <Link href="/" className="logo-link">
               <Image 
                 src="https://i.postimg.cc/q71XVXvS/innogyan-logo-3.png" 
                 alt="innogyan Logo" 
                 width={32}
                 height={32}
                 className="logo-img"
+                unoptimized
               />
-            </a>
+            </Link>
           </div>
 
           <div className={`nav-links ${isMobileMenuOpen ? 'active' : ''}`}>
