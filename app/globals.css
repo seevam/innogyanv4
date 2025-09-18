@@ -734,3 +734,206 @@ body {
   0% { background-position: -200% 0; }
   100% { background-position: 200% 0; }
 }
+
+/* Add to your app/globals.css */
+
+/* Playbox Preview Section */
+.playbox-preview {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.playbox-preview::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="playboxGrid" width="15" height="15" patternUnits="userSpaceOnUse"><path d="M 15 0 L 0 0 0 15" fill="none" stroke="rgba(0,255,255,0.1)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23playboxGrid)"/></svg>');
+  opacity: 0.4;
+}
+
+.playbox-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+}
+
+.playbox-text h3 {
+  font-size: clamp(28px, 5vw, 36px);
+  font-weight: 800;
+  color: #00ffff;
+  margin-bottom: 20px;
+  text-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+}
+
+.playbox-text p {
+  font-size: clamp(16px, 3vw, 18px);
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 30px;
+  line-height: 1.6;
+}
+
+.playbox-features {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-bottom: 30px;
+}
+
+.feature-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 16px;
+}
+
+.feature-icon {
+  font-size: 20px;
+  filter: drop-shadow(0 0 10px rgba(0, 255, 255, 0.5));
+}
+
+.playbox-ctas {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.primary-cta {
+  background: linear-gradient(45deg, #00ffff, #ff00ff);
+  color: #000;
+  padding: 15px 30px;
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 16px;
+  transition: all 0.3s;
+  box-shadow: 0 8px 25px rgba(0, 255, 255, 0.3);
+}
+
+.primary-cta:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 35px rgba(0, 255, 255, 0.4);
+}
+
+.price-tag {
+  color: #00ffff;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 8px 16px;
+  border: 1px solid rgba(0, 255, 255, 0.3);
+  border-radius: 20px;
+  backdrop-filter: blur(10px);
+}
+
+.playbox-visual {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.playbox-mock {
+  position: relative;
+  width: 300px;
+  height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 255, 255, 0.1);
+  border: 2px solid rgba(0, 255, 255, 0.3);
+  border-radius: 30px;
+  backdrop-filter: blur(20px);
+  animation: playboxFloat 4s ease-in-out infinite;
+}
+
+@keyframes playboxFloat {
+  0%, 100% { 
+    transform: translateY(0px) rotate(0deg);
+    box-shadow: 0 0 30px rgba(0, 255, 255, 0.3);
+  }
+  50% { 
+    transform: translateY(-15px) rotate(2deg);
+    box-shadow: 0 15px 40px rgba(0, 255, 255, 0.4);
+  }
+}
+
+.box-icon {
+  font-size: 80px;
+  filter: drop-shadow(0 0 20px rgba(0, 255, 255, 0.6));
+}
+
+.floating-elements {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.float-item {
+  position: absolute;
+  font-size: 24px;
+  animation: floatItem 3s ease-in-out infinite;
+}
+
+.float-item:nth-child(1) {
+  top: 20%;
+  left: 15%;
+  animation-delay: 0s;
+}
+
+.float-item:nth-child(2) {
+  top: 30%;
+  right: 20%;
+  animation-delay: 1s;
+}
+
+.float-item:nth-child(3) {
+  bottom: 25%;
+  left: 25%;
+  animation-delay: 2s;
+}
+
+@keyframes floatItem {
+  0%, 100% { 
+    transform: translateY(0px) rotate(0deg);
+    filter: drop-shadow(0 0 10px currentColor);
+  }
+  50% { 
+    transform: translateY(-10px) rotate(5deg);
+    filter: drop-shadow(0 0 15px currentColor);
+  }
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .playbox-content {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    text-align: center;
+  }
+  
+  .playbox-ctas {
+    justify-content: center;
+  }
+  
+  .playbox-mock {
+    width: 250px;
+    height: 250px;
+  }
+  
+  .box-icon {
+    font-size: 60px;
+  }
+  
+  .float-item {
+    font-size: 20px;
+  }
+}
