@@ -1,22 +1,16 @@
-import { authMiddleware } from "@clerk/nextjs";
+import { clerkMiddleware, createRouteMatcher } from '@clerk/nextjs/server'
 
-export default authMiddleware({
-  // Public routes that don't require authentication
-  publicRoutes: [
-    "/",
-    "/innogyanschool",
-    "/innogyancollege", 
-    "/innogyanplaybox",
-    "/sign-in",
-    "/sign-up",
-    "/api/webhook(.*)",
-  ],
-  // Routes that should redirect to sign-in if not authenticated
-  ignoredRoutes: [
-    "/api/webhook(.*)",
-  ],
-});
+const isProtectedRoute = createRouteMatcher([
+  '/dashboard(.*)',
+  '/courses(.*)',
+  '/projects(.*)',
+  '/mentorship(.*)',
+])
+
+export default clerkMiddleware((auth, req) => {
+  if (isProtectedRoute(req)) auth().protect()
+})
 
 export const config = {
-  matcher: ["/((?!.+\\.[\\w]+$|_next).*)", "/", "/(api|trpc)(.*)"],
-};
+  matcher: ['/((?!.+\\.[\\w]+$|_next).*)', '/', '/(api|trpc)(.*)'],
+}
