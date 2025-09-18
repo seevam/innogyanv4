@@ -5,6 +5,8 @@ import Link from 'next/link';
 import './school.css';
 
 export default function InnogyanSchool() {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
   // Scroll animations
   useEffect(() => {
     const observerOptions = {
@@ -32,22 +34,30 @@ export default function InnogyanSchool() {
     const createParticle = () => {
       const particle = document.createElement('div');
       particle.className = 'particle';
-      particle.style.background = Math.random() > 0.5 ? '#00ffff' : '#ff00ff';
-      particle.style.boxShadow = `0 0 6px ${particle.style.background}`;
+      const colors = ['#00ffff', '#ff00ff', '#00ff00', '#ffff00'];
+      const randomColor = colors[Math.floor(Math.random() * colors.length)];
+      particle.style.background = randomColor;
+      particle.style.boxShadow = `0 0 6px ${randomColor}`;
       particle.style.left = Math.random() * window.innerWidth + 'px';
       particle.style.top = '-10px';
+      particle.style.width = Math.random() * 3 + 2 + 'px';
+      particle.style.height = particle.style.width;
       document.body.appendChild(particle);
 
       const fallDuration = Math.random() * 3000 + 2000;
       const fallAnimation = particle.animate([
-        { transform: 'translateY(0px)', opacity: 1 },
-        { transform: `translateY(${window.innerHeight + 10}px)`, opacity: 0 }
+        { transform: 'translateY(0px) rotate(0deg)', opacity: 1 },
+        { transform: `translateY(${window.innerHeight + 10}px) rotate(360deg)`, opacity: 0 }
       ], {
         duration: fallDuration,
         easing: 'linear'
       });
 
-      fallAnimation.onfinish = () => particle.remove();
+      fallAnimation.onfinish = () => {
+        if (particle.parentNode) {
+          particle.remove();
+        }
+      };
     };
 
     const particleInterval = setInterval(createParticle, 800);
@@ -76,19 +86,81 @@ export default function InnogyanSchool() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Interactive card effects
+  useEffect(() => {
+    const addCardEffects = () => {
+      document.querySelectorAll('.benefit-card, .step-card, .club-card, .delivery-item').forEach(card => {
+        const handleMouseEnter = function() {
+          this.style.willChange = 'transform';
+          this.style.transform = 'translateY(-10px) scale(1.02)';
+        };
+        
+        const handleMouseLeave = function() {
+          this.style.transform = 'translateY(0) scale(1)';
+          setTimeout(() => {
+            this.style.willChange = 'auto';
+          }, 300);
+        };
+
+        card.addEventListener('mouseenter', handleMouseEnter);
+        card.addEventListener('mouseleave', handleMouseLeave);
+        
+        // Cleanup function will be handled by React's cleanup
+      });
+    };
+
+    // Add effects after a short delay to ensure elements are rendered
+    const timer = setTimeout(addCardEffects, 100);
+    return () => clearTimeout(timer);
+  }, []);
+
   const scrollToSection = (sectionId) => {
     const element = document.querySelector(sectionId);
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+      // Close mobile menu if open
+      setIsMobileMenuOpen(false);
+      
+      const headerHeight = 80;
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - headerHeight;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      });
     }
   };
 
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
+
   const benefitsData = [
-    { icon: '🎯', title: 'Attract Top-Tier Students', desc: 'Draw students targeting top global universities with our innovation-first approach and real-world project portfolios.' },
-    { icon: '📁', title: 'Build Real Portfolios', desc: 'Students create tangible portfolios that strengthen college applications with prototypes, research, and startup pitches.' },
-    { icon: '🏆', title: 'Innovation-First Institution', desc: 'Differentiate your school as a leader in innovation education and future-ready skill development.' },
-    { icon: '📚', title: 'NEP 2020 Compliance', desc: 'Meet national education policy requirements with focus on real-world skills and experiential learning.' },
-    { icon: '👨‍👩‍👧‍👦', title: 'Parent Satisfaction', desc: 'Deliver visible outcomes that parents value - tangible skills and projects their children can showcase.' }
+    { 
+      icon: '🎯', 
+      title: 'Attract Top-Tier Students', 
+      desc: 'Draw students targeting top global universities with our innovation-first approach and real-world project portfolios.' 
+    },
+    { 
+      icon: '📁', 
+      title: 'Build Real Portfolios', 
+      desc: 'Students create tangible portfolios that strengthen college applications with prototypes, research, and startup pitches.' 
+    },
+    { 
+      icon: '🏆', 
+      title: 'Innovation-First Institution', 
+      desc: 'Differentiate your school as a leader in innovation education and future-ready skill development.' 
+    },
+    { 
+      icon: '📚', 
+      title: 'NEP 2020 Compliance', 
+      desc: 'Meet national education policy requirements with focus on real-world skills and experiential learning.' 
+    },
+    { 
+      icon: '👨‍👩‍👧‍👦', 
+      title: 'Parent Satisfaction', 
+      desc: 'Deliver visible outcomes that parents value - tangible skills and projects their children can showcase.' 
+    }
   ];
 
   const clubsData = [
@@ -103,20 +175,96 @@ export default function InnogyanSchool() {
   ];
 
   const stepsData = [
-    { num: 1, title: 'Fully Designed Curriculum', desc: 'Complete curriculum with project modules, learning objectives, and assessment frameworks ready for implementation.' },
-    { num: 2, title: 'Flexible Delivery Models', desc: 'On-campus or hybrid delivery models that adapt to your school\'s schedule and infrastructure requirements.' },
-    { num: 3, title: 'Certified Facilitators', desc: 'Trained innogyan facilitators and extensive mentor network provide expert guidance and support.' },
-    { num: 4, title: 'Teacher Training & Support', desc: 'Comprehensive teacher training and capacity-building support to empower your existing faculty.' },
-    { num: 5, title: 'AI-Powered Tracking', desc: 'Advanced student tracking and reporting system provides insights for school leadership and parents.' }
+    { 
+      num: 1, 
+      title: 'Fully Designed Curriculum', 
+      desc: 'Complete curriculum with project modules, learning objectives, and assessment frameworks ready for implementation.' 
+    },
+    { 
+      num: 2, 
+      title: 'Flexible Delivery Models', 
+      desc: 'On-campus or hybrid delivery models that adapt to your school\'s schedule and infrastructure requirements.' 
+    },
+    { 
+      num: 3, 
+      title: 'Certified Facilitators', 
+      desc: 'Trained innogyan facilitators and extensive mentor network provide expert guidance and support.' 
+    },
+    { 
+      num: 4, 
+      title: 'Teacher Training & Support', 
+      desc: 'Comprehensive teacher training and capacity-building support to empower your existing faculty.' 
+    },
+    { 
+      num: 5, 
+      title: 'AI-Powered Tracking', 
+      desc: 'Advanced student tracking and reporting system provides insights for school leadership and parents.' 
+    }
   ];
 
   const whyPartnerData = [
-    { icon: '✅', title: '100% NEP 2020 Aligned', desc: 'Fully compliant with National Education Policy 2020 requirements and guidelines for modern education.' },
-    { icon: '🌐', title: 'Globally Competitive Profiles', desc: 'Build student profiles that compete on the global stage with international universities and opportunities.' },
-    { icon: '🏆', title: 'National Visibility', desc: 'Gain recognition through competitions, showcases, and media coverage of student achievements.' },
-    { icon: '😊', title: 'Parent Satisfaction', desc: 'Deliver measurable, real-world outcomes that parents can see and appreciate in their children\'s development.' },
-    { icon: '📈', title: 'Brand Differentiation', desc: 'Strong positioning for marketing, admissions, and school brand as an innovation leader in education.' }
+    { 
+      icon: '✅', 
+      title: '100% NEP 2020 Aligned', 
+      desc: 'Fully compliant with National Education Policy 2020 requirements and guidelines for modern education.' 
+    },
+    { 
+      icon: '🌐', 
+      title: 'Globally Competitive Profiles', 
+      desc: 'Build student profiles that compete on the global stage with international universities and opportunities.' 
+    },
+    { 
+      icon: '🏆', 
+      title: 'National Visibility', 
+      desc: 'Gain recognition through competitions, showcases, and media coverage of student achievements.' 
+    },
+    { 
+      icon: '😊', 
+      title: 'Parent Satisfaction', 
+      desc: 'Deliver measurable, real-world outcomes that parents can see and appreciate in their children\'s development.' 
+    },
+    { 
+      icon: '📈', 
+      title: 'Brand Differentiation', 
+      desc: 'Strong positioning for marketing, admissions, and school brand as an innovation leader in education.' 
+    }
   ];
+
+  const handleCTAClick = (e) => {
+    e.preventDefault();
+    
+    // Create ripple effect
+    const button = e.currentTarget;
+    const rect = button.getBoundingClientRect();
+    const ripple = document.createElement('span');
+    const size = Math.max(rect.width, rect.height);
+    
+    ripple.style.width = ripple.style.height = size + 'px';
+    ripple.style.left = (e.clientX - rect.left - size / 2) + 'px';
+    ripple.style.top = (e.clientY - rect.top - size / 2) + 'px';
+    ripple.style.position = 'absolute';
+    ripple.style.borderRadius = '50%';
+    ripple.style.background = 'rgba(255, 255, 255, 0.3)';
+    ripple.style.transform = 'scale(0)';
+    ripple.style.animation = 'ripple 0.6s linear';
+    ripple.style.pointerEvents = 'none';
+    
+    button.style.position = 'relative';
+    button.appendChild(ripple);
+    
+    setTimeout(() => {
+      if (ripple.parentNode) {
+        ripple.parentNode.removeChild(ripple);
+      }
+    }, 600);
+
+    // Navigate to contact section or mailto
+    if (e.currentTarget.getAttribute('href') === '#contact') {
+      scrollToSection('#contact');
+    } else {
+      window.location.href = 'mailto:partner@innogyan.com?subject=Partnership Inquiry';
+    }
+  };
 
   return (
     <>
@@ -127,13 +275,16 @@ export default function InnogyanSchool() {
             <span className="rocket">🚀</span>
             innogyan
           </Link>
-          <div className="nav-links">
+          <div className={`nav-links ${isMobileMenuOpen ? 'active' : ''}`}>
             <a onClick={() => scrollToSection('#why-schools')}>Why Schools</a>
             <a onClick={() => scrollToSection('#what-we-deliver')}>Programs</a>
             <a onClick={() => scrollToSection('#clubs')}>Innovation Clubs</a>
             <a onClick={() => scrollToSection('#how-it-works')}>How It Works</a>
             <a onClick={() => scrollToSection('#contact')} className="nav-cta">Partner With Us</a>
           </div>
+          <button className="mobile-menu-btn" onClick={toggleMobileMenu}>
+            {isMobileMenuOpen ? '✕' : '☰'}
+          </button>
         </div>
       </header>
 
@@ -143,7 +294,9 @@ export default function InnogyanSchool() {
           <div className="hero-text">
             <h1>Turn Your School Into An <span className="highlight">Innovation Campus</span>.</h1>
             <p>Future-ready programs, innovation clubs, and global mentorship — fully integrated inside your school.</p>
-            <a onClick={() => scrollToSection('#contact')} className="hero-cta">Partner With innogyan</a>
+            <a href="#contact" onClick={handleCTAClick} className="hero-cta">
+              Partner With innogyan
+            </a>
           </div>
           
           <div className="hero-stats">
@@ -175,7 +328,7 @@ export default function InnogyanSchool() {
           <h2 className="section-title fade-in">Position Your School For Global Readiness</h2>
           <div className="benefits-grid">
             {benefitsData.map((benefit, index) => (
-              <div key={index} className="benefit-card fade-in">
+              <div key={index} className="benefit-card fade-in" style={{ animationDelay: `${index * 0.1}s` }}>
                 <span className="benefit-icon">{benefit.icon}</span>
                 <h3>{benefit.title}</h3>
                 <p>{benefit.desc}</p>
@@ -252,7 +405,7 @@ export default function InnogyanSchool() {
 
           <div className="advanced-clubs">
             {clubsData.map((club, index) => (
-              <div key={index} className="club-card fade-in">
+              <div key={index} className="club-card fade-in" style={{ animationDelay: `${index * 0.1}s` }}>
                 <div className="club-header">
                   <span className="club-emoji">{club.emoji}</span>
                   <div>
@@ -272,7 +425,7 @@ export default function InnogyanSchool() {
           <h2 className="section-title fade-in">Seamless Integration With Your School</h2>
           <div className="integration-steps">
             {stepsData.map((step, index) => (
-              <div key={index} className="step-card fade-in">
+              <div key={index} className="step-card fade-in" style={{ animationDelay: `${index * 0.1}s` }}>
                 <div className="step-number">{step.num}</div>
                 <h3>{step.title}</h3>
                 <p>{step.desc}</p>
@@ -288,7 +441,7 @@ export default function InnogyanSchool() {
           <h2 className="section-title fade-in">Position Your School As A True Innovation Hub</h2>
           <div className="benefits-grid">
             {whyPartnerData.map((benefit, index) => (
-              <div key={index} className="benefit-card fade-in">
+              <div key={index} className="benefit-card fade-in" style={{ animationDelay: `${index * 0.1}s` }}>
                 <span className="benefit-icon">{benefit.icon}</span>
                 <h3>{benefit.title}</h3>
                 <p>{benefit.desc}</p>
@@ -303,7 +456,11 @@ export default function InnogyanSchool() {
         <div className="container">
           <h2 className="section-title fade-in">Bring innogyan To Your Campus</h2>
           <p className="section-subtitle fade-in">Let's build the creators of tomorrow — together.</p>
-          <a href="mailto:partner@innogyan.com" className="final-cta-button fade-in">
+          <a 
+            href="mailto:partner@innogyan.com?subject=Partnership Inquiry - Demo Call Request" 
+            onClick={handleCTAClick}
+            className="final-cta-button fade-in"
+          >
             <span>Book A Demo Call</span>
             <span>📞</span>
           </a>
@@ -326,6 +483,15 @@ export default function InnogyanSchool() {
           </div>
         </div>
       </footer>
+
+      <style jsx>{`
+        @keyframes ripple {
+          to {
+            transform: scale(4);
+            opacity: 0;
+          }
+        }
+      `}</style>
     </>
   );
 }
