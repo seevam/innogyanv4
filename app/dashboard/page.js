@@ -2,6 +2,7 @@
 
 import { useUser, UserButton } from '@clerk/nextjs';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import './dashboard.css';
 
@@ -207,7 +208,13 @@ export default function Dashboard() {
             <div className="recommendations-grid">
               <div className="recommendation-card">
                 <div className="card-image">
-                  <div className="image-placeholder">🤖</div>
+                  <Image
+                    src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=600&h=400&fit=crop"
+                    alt="Advanced Robotics"
+                    width={600}
+                    height={400}
+                    className="recommendation-img"
+                  />
                 </div>
                 <div className="card-content">
                   <h3>Advanced Robotics</h3>
@@ -219,10 +226,16 @@ export default function Dashboard() {
                   <button className="card-action">Enroll Now</button>
                 </div>
               </div>
-              
+
               <div className="recommendation-card">
                 <div className="card-image">
-                  <div className="image-placeholder">🧬</div>
+                  <Image
+                    src="https://images.unsplash.com/photo-1579154341394-01ee2787e8d6?w=600&h=400&fit=crop"
+                    alt="Biotech Innovation"
+                    width={600}
+                    height={400}
+                    className="recommendation-img"
+                  />
                 </div>
                 <div className="card-content">
                   <h3>Biotech Innovation</h3>
@@ -234,10 +247,16 @@ export default function Dashboard() {
                   <button className="card-action">Enroll Now</button>
                 </div>
               </div>
-              
+
               <div className="recommendation-card">
                 <div className="card-image">
-                  <div className="image-placeholder">🌍</div>
+                  <Image
+                    src="https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=600&h=400&fit=crop"
+                    alt="Sustainable Tech"
+                    width={600}
+                    height={400}
+                    className="recommendation-img"
+                  />
                 </div>
                 <div className="card-content">
                   <h3>Sustainable Tech</h3>

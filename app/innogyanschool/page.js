@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import './school.css';
 
 export default function InnogyanSchool() {
@@ -290,6 +291,16 @@ export default function InnogyanSchool() {
 
       {/* Hero Section */}
       <section className="hero">
+        <div className="hero-background">
+          <Image
+            src="https://images.unsplash.com/photo-1509062522246-3755977927d7?w=1920&h=1080&fit=crop"
+            alt="Students collaborating in innovation lab"
+            fill
+            className="hero-bg-image"
+            priority
+          />
+          <div className="hero-overlay"></div>
+        </div>
         <div className="hero-content">
           <div className="hero-text">
             <h1>Turn Your School Into An <span className="highlight">Innovation Campus</span>.</h1>
@@ -298,7 +309,7 @@ export default function InnogyanSchool() {
               Partner With innogyan
             </a>
           </div>
-          
+
           <div className="hero-stats">
             <div className="stats-grid">
               <div className="stat-item">

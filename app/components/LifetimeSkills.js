@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Image from 'next/image';
 
 export default function LifetimeSkills() {
   const [currentSlide, setCurrentSlide] = useState(1); // Start with center card
@@ -12,7 +13,8 @@ export default function LifetimeSkills() {
       description: "Good grades alone are no longer enough. innogyan gives students the real-world experience of building, solving, and creating — not just studying.",
       features: ["Hands-On", "Real Projects", "Beyond Grades"],
       color: "blue",
-      icon: "🎯"
+      icon: "🎯",
+      image: "https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=600&h=400&fit=crop"
     },
     {
       title: "A Launchpad for Builders",
@@ -21,7 +23,8 @@ export default function LifetimeSkills() {
       features: ["Problem Solving", "Innovation", "Future Ready"],
       color: "orange",
       icon: "🚀",
-      featured: true
+      featured: true,
+      image: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=600&h=400&fit=crop"
     },
     {
       title: "Guided By Mentors Who've Done It",
@@ -29,7 +32,8 @@ export default function LifetimeSkills() {
       description: "IIT, IIM, and global university alumni mentor every student — bringing real-world experience, not just academic theory.",
       features: ["IIT Alumni", "IIM Alumni", "Global Experience"],
       color: "yellow",
-      icon: "🎓"
+      icon: "🎓",
+      image: "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=600&h=400&fit=crop"
     },
     {
       title: "Helping Students Discover Their Edge",
@@ -37,7 +41,8 @@ export default function LifetimeSkills() {
       description: "Students build real projects, pitch ideas, collaborate, and develop skills that make them globally competitive for universities, companies, and ventures.",
       features: ["Real Projects", "Pitching", "Global Competence"],
       color: "green",
-      icon: "💎"
+      icon: "💎",
+      image: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=600&h=400&fit=crop"
     }
   ];
 
@@ -97,10 +102,15 @@ export default function LifetimeSkills() {
                   </div>
                   <div className="card-image-container">
                     <div className="card-image">
-                      <div className="image-placeholder">
-                        <span className="image-icon">{card.icon}</span>
-                        <div className="tech-grid-overlay"></div>
-                      </div>
+                      <Image
+                        src={card.image}
+                        alt={card.subtitle}
+                        width={600}
+                        height={400}
+                        className="contextual-image"
+                      />
+                      <div className="image-overlay"></div>
+                      <div className="tech-grid-overlay"></div>
                       {card.featured && (
                         <div className="play-button-overlay">
                           <div className="play-icon">▶</div>
@@ -439,7 +449,6 @@ export default function LifetimeSkills() {
         .card-image {
           width: 100%;
           height: 100%;
-          background: linear-gradient(135deg, #2a2a2a 0%, #3a3a3a 100%);
           display: flex;
           align-items: center;
           justify-content: center;
@@ -448,14 +457,24 @@ export default function LifetimeSkills() {
           overflow: hidden;
         }
 
-        .image-placeholder {
-          position: relative;
-          z-index: 2;
+        .contextual-image {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          position: absolute;
+          top: 0;
+          left: 0;
+          z-index: 1;
         }
 
-        .image-icon {
-          font-size: 64px;
-          display: block;
+        .image-overlay {
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: linear-gradient(135deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.2) 100%);
+          z-index: 2;
         }
 
         .tech-grid-overlay {
@@ -464,8 +483,9 @@ export default function LifetimeSkills() {
           left: 0;
           right: 0;
           bottom: 0;
-          background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50"><defs><pattern id="cardGrid" width="5" height="5" patternUnits="userSpaceOnUse"><path d="M 5 0 L 0 0 0 5" fill="none" stroke="rgba(0,255,255,0.1)" stroke-width="0.3"/></pattern></defs><rect width="50" height="50" fill="url(%23cardGrid)"/></svg>');
-          opacity: 0.5;
+          background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50"><defs><pattern id="cardGrid" width="5" height="5" patternUnits="userSpaceOnUse"><path d="M 5 0 L 0 0 0 5" fill="none" stroke="rgba(0,255,255,0.15)" stroke-width="0.3"/></pattern></defs><rect width="50" height="50" fill="url(%23cardGrid)"/></svg>');
+          opacity: 0.3;
+          z-index: 3;
         }
 
         .feature-card:hover .card-image {

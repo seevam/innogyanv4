@@ -1,5 +1,7 @@
 'use client';
 
+import Image from 'next/image';
+
 export default function Products() {
   return (
     <section className="section" id="products">
@@ -10,13 +12,29 @@ export default function Products() {
             <div className="product-card-inner">
               <div className="product-card-front">
                 <span className="age-badge">Ages 5-12</span>
-                <div className="product-icon icon-playbox"></div>
+                <div className="product-image">
+                  <Image
+                    src="https://images.unsplash.com/photo-1587654780291-39c9404d746b?w=400&h=400&fit=crop"
+                    alt="Kids building STEAM projects"
+                    width={400}
+                    height={400}
+                    className="card-img"
+                  />
+                </div>
                 <h3>innogyan Playbox</h3>
               </div>
-              
+
               <div className="product-card-back">
                 <span className="age-badge">Ages 5-12</span>
-                <div className="product-icon icon-playbox"></div>
+                <div className="product-image-small">
+                  <Image
+                    src="https://images.unsplash.com/photo-1587654780291-39c9404d746b?w=200&h=200&fit=crop"
+                    alt="Kids building STEAM projects"
+                    width={200}
+                    height={200}
+                    className="card-img-small"
+                  />
+                </div>
                 <h3>innogyan Playbox</h3>
                 <p>Monthly hands-on STEAM projects that spark curiosity and build foundational skills through play-based learning.</p>
                 <a href="/innogyanplaybox" className="learn-more">Explore →</a>
@@ -28,13 +46,29 @@ export default function Products() {
             <div className="product-card-inner">
               <div className="product-card-front">
                 <span className="age-badge">Ages 13-18</span>
-                <div className="product-icon icon-club"></div>
+                <div className="product-image">
+                  <Image
+                    src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=400&h=400&fit=crop"
+                    alt="Teenagers coding and building projects"
+                    width={400}
+                    height={400}
+                    className="card-img"
+                  />
+                </div>
                 <h3>Club innogyan</h3>
               </div>
-              
+
               <div className="product-card-back">
                 <span className="age-badge">Ages 13-18</span>
-                <div className="product-icon icon-club"></div>
+                <div className="product-image-small">
+                  <Image
+                    src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=200&h=200&fit=crop"
+                    alt="Teenagers coding and building projects"
+                    width={200}
+                    height={200}
+                    className="card-img-small"
+                  />
+                </div>
                 <h3>Club innogyan</h3>
                 <p>Real-world projects, global mentors, and powerful portfolios for students ready to create and innovate.</p>
                 <a href="/innogyanclub" className="learn-more">Explore →</a>
@@ -46,13 +80,29 @@ export default function Products() {
             <div className="product-card-inner">
               <div className="product-card-front">
                 <span className="age-badge">Ages 18-25</span>
-                <div className="product-icon icon-garage"></div>
+                <div className="product-image">
+                  <Image
+                    src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=400&h=400&fit=crop"
+                    alt="Young entrepreneurs building startup"
+                    width={400}
+                    height={400}
+                    className="card-img"
+                  />
+                </div>
                 <h3>innogyan Garage</h3>
               </div>
-              
+
               <div className="product-card-back">
                 <span className="age-badge">Ages 18-25</span>
-                <div className="product-icon icon-garage"></div>
+                <div className="product-image-small">
+                  <Image
+                    src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=200&h=200&fit=crop"
+                    alt="Young entrepreneurs building startup"
+                    width={200}
+                    height={200}
+                    className="card-img-small"
+                  />
+                </div>
                 <h3>innogyan Garage</h3>
                 <p>Build ventures before you graduate. Turn college into a launchpad for real products and companies.</p>
                 <a href="/innogyangarage" className="learn-more">Explore →</a>
@@ -149,20 +199,34 @@ export default function Products() {
           margin-bottom: 20px;
         }
 
-        .product-icon {
-          width: 100px;
-          height: 100px;
+        .product-image {
+          width: 120px;
+          height: 120px;
           margin: 20px auto;
-          background-size: contain;
-          background-repeat: no-repeat;
-          background-position: center;
-          filter: drop-shadow(0 0 15px currentColor);
+          border-radius: 15px;
+          overflow: hidden;
+          border: 2px solid rgba(255, 255, 255, 0.3);
+          box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
         }
 
-        .product-card-back .product-icon {
-          width: 60px;
-          height: 60px;
+        .product-image-small {
+          width: 70px;
+          height: 70px;
           margin: 0 auto 15px;
+          border-radius: 10px;
+          overflow: hidden;
+          border: 2px solid rgba(255, 255, 255, 0.3);
+          box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);
+        }
+
+        .card-img, .card-img-small {
+          object-fit: cover;
+          transition: transform 0.3s ease;
+        }
+
+        .product-card:hover .card-img,
+        .product-card:hover .card-img-small {
+          transform: scale(1.1);
         }
 
         .product-card-front h3 {
@@ -241,19 +305,16 @@ export default function Products() {
           border-color: rgba(255, 0, 255, 0.6);
         }
 
-        .icon-playbox {
-          background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='grad1' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%234CAF50;stop-opacity:1' /%3E%3Cstop offset='100%25' style='stop-color:%2345a049;stop-opacity:1' /%3E%3C/linearGradient%3E%3C/defs%3E%3Crect x='20' y='25' width='60' height='45' rx='8' fill='url(%23grad1)' stroke='%23ffffff' stroke-width='2'/%3E%3Crect x='25' y='30' width='15' height='15' rx='3' fill='%23ffffff' opacity='0.8'/%3E%3Crect x='45' y='30' width='15' height='15' rx='3' fill='%23ffffff' opacity='0.8'/%3E%3Crect x='65' y='30' width='10' height='25' rx='3' fill='%23ffffff' opacity='0.8'/%3E%3Cpath d='M30 75 Q35 70 40 75 Q45 80 50 75 Q55 70 60 75 Q65 80 70 75' stroke='%234CAF50' stroke-width='3' fill='none' opacity='0.6'/%3E%3C/svg%3E");
-          color: #4CAF50;
+        .product-card.playbox .product-image {
+          box-shadow: 0 0 20px rgba(76, 175, 80, 0.4);
         }
 
-        .icon-club {
-          background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='grad2' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%2300ffff;stop-opacity:1' /%3E%3Cstop offset='100%25' style='stop-color:%230099cc;stop-opacity:1' /%3E%3C/linearGradient%3E%3C/defs%3E%3Ccircle cx='50' cy='45' r='25' fill='url(%23grad2)' stroke='%23ffffff' stroke-width='2'/%3E%3Cpath d='M35 35 L50 20 L65 35' stroke='%23ffffff' stroke-width='3' fill='none' stroke-linecap='round'/%3E%3Cpath d='M50 20 L50 70' stroke='%23ffffff' stroke-width='3' stroke-linecap='round'/%3E%3Cpath d='M40 55 L50 45 L60 55' stroke='%23ffffff' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3Ccircle cx='35' cy='75' r='4' fill='%2300ffff' opacity='0.7'/%3E%3Ccircle cx='50' cy='80' r='3' fill='%2300ffff' opacity='0.7'/%3E%3Ccircle cx='65' cy='75' r='4' fill='%2300ffff' opacity='0.7'/%3E%3C/svg%3E");
-          color: #00ffff;
+        .product-card.club .product-image {
+          box-shadow: 0 0 20px rgba(0, 255, 255, 0.4);
         }
 
-        .icon-garage {
-          background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='grad3' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%23ff00ff;stop-opacity:1' /%3E%3Cstop offset='100%25' style='stop-color:%23cc0099;stop-opacity:1' /%3E%3C/linearGradient%3E%3C/defs%3E%3Crect x='25' y='35' width='50' height='40' rx='5' fill='url(%23grad3)' stroke='%23ffffff' stroke-width='2'/%3E%3Crect x='30' y='25' width='40' height='15' rx='3' fill='%23ffffff' opacity='0.9'/%3E%3Ccircle cx='38' cy='32' r='3' fill='%23ff00ff'/%3E%3Ccircle cx='50' cy='32' r='3' fill='%23ff00ff'/%3E%3Ccircle cx='62' cy='32' r='3' fill='%23ff00ff'/%3E%3Crect x='35' y='45' width='8' height='8' rx='2' fill='%23ffffff' opacity='0.8'/%3E%3Crect x='46' y='45' width='8' height='8' rx='2' fill='%23ffffff' opacity='0.8'/%3E%3Crect x='57' y='45' width='8' height='8' rx='2' fill='%23ffffff' opacity='0.8'/%3E%3Cpath d='M35 60 L40 65 L45 60 L50 65 L55 60 L60 65 L65 60' stroke='%23ffffff' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
-          color: #ff00ff;
+        .product-card.garage .product-image {
+          box-shadow: 0 0 20px rgba(255, 0, 255, 0.4);
         }
 
         @media (max-width: 768px) {
@@ -261,16 +322,21 @@ export default function Products() {
             grid-template-columns: 1fr;
             gap: 20px;
           }
-          
+
           .product-card {
             height: 300px;
           }
-          
-          .product-icon {
-            width: 80px;
-            height: 80px;
+
+          .product-image {
+            width: 100px;
+            height: 100px;
           }
-          
+
+          .product-image-small {
+            width: 60px;
+            height: 60px;
+          }
+
           .product-card-front h3 {
             font-size: 24px;
           }
